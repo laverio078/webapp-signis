@@ -32,6 +32,7 @@
             </td>
             <td>
                 <a href="/save_dependency/{{ d['dependency_id'] }}" class="btn btn-sm btn-warning">Modifica</a>
+                <a href="/delete_dependency/{{ d['dependency_id'] }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Rimuovere questa dipendenza?');">Elimina</a>
             </td>
         </tr>
         {% else %}

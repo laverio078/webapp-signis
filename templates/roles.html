@@ -15,6 +15,7 @@
             <td>{{ r['description'] }}</td>
             <td>
                 <a href="/save_role/{{ r['role_id'] }}" class="btn btn-sm btn-warning">Modifica</a>
+                <a href="/delete_role/{{ r['role_id'] }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Sicuro?');">Elimina</a>
             </td>
         </tr>
         {% endfor %}

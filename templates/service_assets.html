@@ -11,6 +11,7 @@
             <th>Servizio Erogato</th>
             <th>Asset Dipendente</th>
             <th>Ruolo dell'Asset nel Servizio</th>
+            <th>Azioni</th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +20,9 @@
             <td><span class="text-primary fw-bold">{{ l['service_name'] }}</span></td>
             <td>{{ l['asset_name'] }}</td>
             <td><em>{{ l['role_in_service'] }}</em></td>
+            <td>
+                <a href="/delete_service_asset/{{ l['service_id'] }}/{{ l['asset_id'] }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Rimuovere asset dal servizio?');">Rimuovi Associazione</a>
+            </td>
         </tr>
         {% else %}
         <tr>

@@ -237,6 +237,20 @@ def save_role(id=None):
     conn.close()
     return render_template('form_role.html', role=role)
 
+@app.route('/delete_role/<string:id>')
+def delete_role(id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    try:
+        cur.execute("DELETE FROM role WHERE role_id = %s", (id,))
+        conn.commit()
+        flash('Ruolo eliminato.', 'warning')
+    except Exception as e:
+        conn.rollback()
+        flash(f"Errore eliminazione: {e}", 'danger')
+    conn.close()
+    return redirect(url_for('lista_roles'))
+
 
 
 
@@ -443,6 +457,20 @@ def save_service(id=None):
     conn.close()
     return render_template('form_service.html', service=service, orgs=orgs, persons=persons)
 
+@app.route('/delete_service/<string:id>')
+def delete_service(id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    try:
+        cur.execute("DELETE FROM service WHERE service_id = %s", (id,))
+        conn.commit()
+        flash('Servizio eliminato.', 'warning')
+    except Exception as e:
+        conn.rollback()
+        flash(f"Errore (ci sono dipendenze o asset collegati?): {e}", 'danger')
+    conn.close()
+    return redirect(url_for('lista_services'))
+
 
 
 
@@ -491,6 +519,21 @@ def save_service_asset():
     
     conn.close()
     return render_template('form_service_asset.html', services=services, assets=assets)
+
+@app.route('/delete_service_asset/<string:s_id>/<string:a_id>')
+def delete_service_asset(s_id, a_id):
+    # Questa ha 2 parametri perché è una tabella associativa
+    conn = get_db_connection()
+    cur = conn.cursor()
+    try:
+        cur.execute("DELETE FROM service_asset WHERE service_id = %s AND asset_id = %s", (s_id, a_id))
+        conn.commit()
+        flash('Associazione rimossa.', 'warning')
+    except Exception as e:
+        conn.rollback()
+        flash(f"Errore: {e}", 'danger')
+    conn.close()
+    return redirect(url_for('lista_service_assets'))
 
 
 
@@ -556,7 +599,19 @@ def save_dependency(id=None):
     conn.close()
     return render_template('form_dependency.html', dep=dep, services=services, vendors=vendors)
 
-
+@app.route('/delete_dependency/<string:id>')
+def delete_dependency(id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    try:
+        cur.execute("DELETE FROM dependency WHERE dependency_id = %s", (id,))
+        conn.commit()
+        flash('Dipendenza di supply chain eliminata.', 'warning')
+    except Exception as e:
+        conn.rollback()
+        flash(f"Errore: {e}", 'danger')
+    conn.close()
+    return redirect(url_for('lista_dependencies'))
 
 # Questa me la stavo a scordà.
 

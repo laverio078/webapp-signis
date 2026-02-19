@@ -37,6 +37,7 @@
             <td>{{ s['business_impact'] }}</td>
             <td>
                 <a href="/save_service/{{ s['service_id'] }}" class="btn btn-sm btn-warning">Modifica</a>
+                <a href="/delete_service/{{ s['service_id'] }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Vuoi eliminare questo servizio?');">Elimina</a>
             </td>
         </tr>
         {% else %}
