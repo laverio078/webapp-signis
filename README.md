@@ -1,5 +1,10 @@
 # 🛡️ SIGNIS WebApp - Interfaccia di Gestione NIS2
 
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap_5-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
+![Tests](https://img.shields.io/badge/Unit_Tests-19%2F19_Passed-brightgreen?style=for-the-badge)
+![Status](https://img.shields.io/badge/Project-Bonus_Track-FFDD00?style=for-the-badge)
 ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)
 
 Questa cartella contiene l'interfaccia web del progetto SIGNIS, è una demo app che magari potrebbe essere utile a qualcuno come base di sviluppo. Non ha uno stile accademico perchè per me è una bonus track e per quanto abbia rispetto per lo stile, qui uso il mio da neurodivergente.
