@@ -1,5 +1,7 @@
 # 🛡️ SIGNIS WebApp - Interfaccia di Gestione NIS2
 
+![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)
+
 Questa cartella contiene l'interfaccia web del progetto SIGNIS, è una demo app che magari potrebbe essere utile a qualcuno come base di sviluppo. Non ha uno stile accademico perchè per me è una bonus track e per quanto abbia rispetto per lo stile, qui uso il mio da neurodivergente.
 
 Visto che gestire un database relazionale interamente da riga di comando (o tramite pgAdmin) non è proprio "user-friendly" per chi deve compilare i registri NIS2 in azienda, ho speso 50 centesimi del mio tempo per sviluppare questa piccola applicazione web e rendere le operazioni CRUD (Create, Read, Update, Delete) facilmente accessibili.
@@ -85,3 +87,8 @@ L'interfaccia mappa, spero, fedelmente l'infrastruttura del database e permette 
 * I metadati avanzati (come quelli di Persone e Fornitori) vengono salvati su DB in formato `JSONB`. L'interfaccia web accetta stringhe JSON e le passa direttamente al motore di Postgres, quindi essendo dati JSON il campo non può rimanere vuoto ma deve essere riempito con {}.
 * L'app potrebbe anche non funzionare correttamente, però sono stati fatti test unitari estensivi.
 
+## 📄 Licenza
+
+Questo progetto è distribuito sotto licenza **GNU General Public License v3.0 (GPL-3.0)**.
+Sei libero di usare, studiare, condividere e modificare il software. Qualsiasi progetto derivato dovrà essere distribuito sotto la medesima licenza. 
+Per i dettagli completi, consulta il file [LICENSE](LICENSE) presente nella root del repository.
