@@ -21,6 +21,11 @@ sudo docker compose up -d
 
 ## Clonazione del repository
 
+```bash
+git clone https://github.com/laverio078/webapp-signis.git
+
+```
+
 ## 🚀 First run
 
 Io consiglio l'uso del venv di python per non sporcare il proprio ambiente, però ognuno è libero di fare come gli pare.
