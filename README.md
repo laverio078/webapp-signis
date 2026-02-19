@@ -43,7 +43,7 @@ Ovviamente, scegliere una cartella dove creare la cartella venv a proprio piacim
 
 1. **Entrare nella cartella della webapp** (se non ci sei già):
 ```bash
-cd webapp
+cd webapp-signis
 
 ```
 
@@ -73,8 +73,8 @@ L'interfaccia mappa, spero, fedelmente l'infrastruttura del database e permette 
 * **Gestire le Anagrafiche Base**: Inserimento, modifica e cancellazione dei dati.
 * **Gestire il Core NIS2**: Censire Asset e Servizi.
 * **Creare le Relazioni**:
-* **Asset x Servizio**: Associare uno o più asset fisici/logici a un servizio aziendale (es. "Il Server X fa da Database per il Servizio Y").
-* **Supply Chain**: Gestire le dipendenze dai fornitori esterni, inserendo riferimenti SLA e tipo di fornitura, come richiesto dall'art. 21 della Direttiva NIS2.
+* * **Asset x Servizio**: Associare uno o più asset fisici/logici a un servizio aziendale (es. "Il Server X fa da Database per il Servizio Y").
+* * **Supply Chain**: Gestire le dipendenze dai fornitori esterni, inserendo riferimenti SLA e tipo di fornitura, come richiesto dall'art. 21 della Direttiva NIS2.
 * **Compliance ACN**: Per gestire il tiering e l'implementazione dei controlli di sicurezza secondo il framework CISI/CIN
 
 
