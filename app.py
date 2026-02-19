@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, Response
 import psycopg2
 import psycopg2.extras
+import io
+import csv
 
 app = Flask(__name__)
 app.secret_key = 'sk_live_WgGepnrmzBxTP8HmMKceRY4lf3Alt318' 
@@ -619,7 +621,7 @@ def delete_dependency(id):
 def lista_compliance():
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    
+
     cur.execute("""
         SELECT sp.*, a.name as asset_name, c.function_name, c.category_name, c.description as control_desc
         FROM security_profile sp
@@ -628,8 +630,12 @@ def lista_compliance():
         ORDER BY a.name, c.function_name, c.code
     """)
     profiles = cur.fetchall()
+    
+    cur.execute("SELECT name FROM organization ORDER BY name")
+    orgs = cur.fetchall()
+    
     conn.close()
-    return render_template('compliance.html', profiles=profiles)
+    return render_template('compliance.html', profiles=profiles, orgs=orgs)
 
 @app.route('/save_profile', methods=('GET', 'POST'))
 @app.route('/save_profile/<string:id>', methods=('GET', 'POST'))
@@ -695,6 +701,55 @@ def delete_profile(id):
         flash(f"Errore: {e}", 'danger')
     conn.close()
     return redirect(url_for('lista_compliance'))
+
+@app.route('/export_acn_csv', methods=['POST'])
+def export_acn_csv():
+    # Recupera i nomi delle organizzazioni selezionate dalle checkbox
+    selected_orgs = request.form.getlist('org_names')
+    
+    if not selected_orgs:
+        flash("Seleziona almeno un'organizzazione per generare il report.", "warning")
+        return redirect(url_for('lista_compliance'))
+
+    conn = get_db_connection()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    
+    try:
+        # Costruiamo dinamicamente la query SQL con la clausola IN (...)
+        placeholders = ', '.join(['%s'] * len(selected_orgs))
+        query = f"""
+            SELECT * FROM vw_acn_profile_csv 
+            WHERE organization_name IN ({placeholders}) 
+            ORDER BY organization_name, service_name, asset_name, acn_control_code
+        """
+        
+        cur.execute(query, tuple(selected_orgs))
+        rows = cur.fetchall()
+        
+        si = io.StringIO()
+        cw = csv.writer(si, delimiter=';')
+        
+        if rows:
+            # Intestazioni delle colonne
+            cw.writerow([desc[0].upper() for desc in cur.description])
+            cw.writerows(rows)
+        else:
+            cw.writerow(['Nessun dato disponibile per le organizzazioni selezionate'])
+            
+        output = si.getvalue()
+        
+        # utf-8-sig forza il "BOM" (Byte Order Mark) per supportare nativamente Microsoft Excel
+        return Response(
+            output.encode('utf-8-sig'),
+            mimetype="text/csv; charset=utf-8",
+            headers={"Content-Disposition": "attachment;filename=report_acn_nis2.csv"}
+        )
+        
+    except Exception as e:
+        flash(f"Errore generazione CSV: {e}", 'danger')
+        return redirect(url_for('lista_compliance'))
+    finally:
+        conn.close()
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
