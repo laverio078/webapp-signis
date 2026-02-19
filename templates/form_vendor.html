@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow col-md-8 mx-auto">
+    <div class="card-header bg-success text-white">
+        <h4>{{ 'Modifica' if vendor else 'Nuovo' }} Fornitore</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label>Ragione Sociale Fornitore</label>
+                <input type="text" name="name" class="form-control" required value="{{ vendor['name'] if vendor else '' }}">
+            </div>
+
+            <div class="mb-3">
+                <label>Nome Referente Tecnico/Commerciale</label>
+                <input type="text" name="contact_name" class="form-control" value="{{ vendor['contact_name'] if vendor else '' }}">
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Email Referente</label>
+                    <input type="email" name="contact_email" class="form-control" value="{{ vendor['contact_email'] if vendor else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Telefono Referente</label>
+                    <input type="text" name="contact_phone" class="form-control" placeholder="+39 02 123456" value="{{ vendor['contact_phone'] if vendor else '' }}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label>Metadati aggiuntivi (JSON)</label>
+                <textarea name="metadata" class="form-control text-monospace" rows="2" placeholder='{"piva": "IT1234567890", "sla_standard": "99.9%"}'>{{ vendor['metadata'] if vendor else '{}' }}</textarea>
+                <div class="form-text">Attenzione: inserire solo un formato JSON valido. Lasciare <code>{}</code> se vuoto.</div>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Salva Fornitore</button>
+            <a href="/vendors" class="btn btn-secondary w-100 mt-2">Annulla</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

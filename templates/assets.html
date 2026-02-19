@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Gestione Asset</h2>
+    <a href="/save_asset" class="btn btn-success">+ Nuovo Asset</a>
+</div>
+
+<table class="table table-striped table-hover shadow-sm bg-white rounded">
+    <thead class="table-dark">
+        <tr>
+            <th>Nome Asset</th>
+            <th>Tipo</th>
+            <th>Organizzazione</th>
+            <th>Criticità</th>
+            <th style="width: 200px;">Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for asset in assets %}
+        <tr>
+            <td><strong>{{ asset['name'] }}</strong></td>
+            <td>{{ asset['asset_type'] }}</td>
+            <td>{{ asset['org_name'] }}</td>
+            <td>
+                {% if asset['criticality'] >= 4 %}
+                    <span class="badge bg-danger">Alta ({{ asset['criticality'] }})</span>
+                {% elif asset['criticality'] == 3 %}
+                    <span class="badge bg-warning text-dark">Media ({{ asset['criticality'] }})</span>
+                {% else %}
+                    <span class="badge bg-success">Bassa ({{ asset['criticality'] }})</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="/save_asset/{{ asset['asset_id'] }}" class="btn btn-sm btn-warning">Modifica</a>
+                <a href="/delete_asset/{{ asset['asset_id'] }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Sicuro di voler eliminare questo asset?');">Elimina</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

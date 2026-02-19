@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow col-md-8 mx-auto">
+    <div class="card-header bg-info text-white">
+        <h4>{{ 'Modifica' if service else 'Nuovo' }} Servizio</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label>Nome Servizio</label>
+                <input type="text" name="name" class="form-control" required value="{{ service['name'] if service else '' }}">
+            </div>
+            
+            <div class="mb-3">
+                <label>Descrizione</label>
+                <textarea name="description" class="form-control" rows="2">{{ service['description'] if service else '' }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label>Organizzazione Erogatrice</label>
+                <select name="organization_id" class="form-select" required>
+                    <option value="">-- Seleziona --</option>
+                    {% for org in orgs %}
+                    <option value="{{ org['organization_id'] }}" {% if service and service['organization_id']|string == org['organization_id']|string %}selected{% endif %}>
+                        {{ org['name'] }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Responsabile di Servizio (Service Owner)</label>
+                <select name="service_owner" class="form-select">
+                    <option value="">-- Nessun Responsabile Assegnato --</option>
+                    {% for p in persons %}
+                    <option value="{{ p['person_id'] }}" {% if service['service_owner']|string == p['person_id']|string %}selected{% endif %}>
+                        {{ p['family_name'] }} {{ p['given_name'] }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Criticità (1-5)</label>
+                    <input type="number" name="criticality" class="form-control" min="1" max="5" value="{{ service['criticality'] if service else '3' }}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label>Impatto sul Business (Business Impact)</label>
+                <textarea name="business_impact" class="form-control" rows="2" placeholder="Cosa succede se si ferma?">{{ service['business_impact'] if service else '' }}</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-info w-100 text-white">Salva Servizio</button>
+            <a href="/services" class="btn btn-secondary w-100 mt-2">Annulla</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

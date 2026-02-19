@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Organizzazioni Censite</h2>
+    <a href="/save_org" class="btn btn-primary">+ Nuova Organizzazione</a>
+</div>
+
+<table class="table table-striped table-hover shadow-sm bg-white rounded">
+    <thead class="table-dark">
+        <tr>
+            <th>Nome / Ragione Sociale</th>
+            <th>P.IVA</th>
+            <th>Contatti Istituzionali</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for o in orgs %}
+        <tr>
+            <td>
+                <strong>{{ o['name'] }}</strong><br>
+                <small class="text-muted">{{ o['address'] }}</small>
+            </td>
+            <td>{{ o['vat'] }}</td>
+            <td>
+                {% if o['contact_email'] %}📧 <a href="mailto:{{ o['contact_email'] }}">{{ o['contact_email'] }}</a><br>{% endif %}
+                {% if o['contact_phone'] %}📞 {{ o['contact_phone'] }}{% endif %}
+            </td>
+            <td>
+                <a href="/save_org/{{ o['organization_id'] }}" class="btn btn-sm btn-warning">Modifica</a>
+                <a href="/delete_org/{{ o['organization_id'] }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Sicuro di voler eliminare l\'organizzazione?');">Elimina</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4" class="text-center">Nessuna organizzazione registrata.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

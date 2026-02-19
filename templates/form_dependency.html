@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow col-md-8 mx-auto border-dark">
+    <div class="card-header bg-dark text-white">
+        <h4>{{ 'Modifica' if dep else 'Nuova' }} Dipendenza (Supply Chain)</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            
+            <div class="mb-3">
+                <label class="fw-bold">Servizio Impattato</label>
+                <select name="service_id" class="form-select" required>
+                    <option value="">-- Seleziona il Servizio --</option>
+                    {% for s in services %}
+                    <option value="{{ s['service_id'] }}" 
+                        {% if dep and dep['service_id'] == s['service_id'] %}selected{% endif %}>
+                        {{ s['name'] }}
+                    </option>
+                    {% endfor %}
+                </select>
+                <div class="form-text">Quale servizio interno dipende da questo fornitore?</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="fw-bold">Fornitore / Terza Parte</label>
+                <select name="vendor_id" class="form-select" required>
+                    <option value="">-- Seleziona il Fornitore --</option>
+                    {% for v in vendors %}
+                    <option value="{{ v['vendor_id'] }}"
+                        {% if dep and dep['vendor_id'] == v['vendor_id'] %}selected{% endif %}>
+                        {{ v['name'] }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Descrizione della fornitura</label>
+                <textarea name="description" class="form-control" rows="2" placeholder="Es. Hosting del database principale">{{ dep['description'] if dep else '' }}</textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Tipo Dipendenza</label>
+                    <input type="text" name="dependency_type" class="form-control" placeholder="es. SaaS, IaaS, PaaS, Servizi Gestiti" value="{{ dep['dependency_type'] if dep else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Riferimento SLA</label>
+                    <input type="text" name="sla_reference" class="form-control" placeholder="es. Uptime 99.9%, Contratto #123" value="{{ dep['sla_reference'] if dep else '' }}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label>Criticità della Dipendenza (1-5)</label>
+                <input type="number" name="criticality" class="form-control" min="1" max="5" value="{{ dep['criticality'] if dep else '3' }}">
+                <div class="form-text">Quanto è critico questo fornitore per l'erogazione del servizio scelto?</div>
+            </div>
+
+            <button type="submit" class="btn btn-dark w-100">Salva Dipendenza</button>
+            <a href="/dependencies" class="btn btn-outline-secondary w-100 mt-2">Annulla</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

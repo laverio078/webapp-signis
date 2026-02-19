@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow col-md-8 mx-auto border-primary">
+    <div class="card-header bg-primary text-white">
+        <h4>{{ 'Modifica' if org else 'Nuova' }} Organizzazione</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label>Ragione Sociale / Ente</label>
+                <input type="text" name="name" class="form-control" required value="{{ org['name'] if org else '' }}">
+            </div>
+            
+            <div class="mb-3">
+                <label>Partita IVA</label>
+                <input type="text" name="vat" class="form-control" maxlength="13" value="{{ org['vat'] if org else '' }}">
+            </div>
+            
+            <div class="mb-3">
+                <label>Indirizzo Sede Legale</label>
+                <textarea name="address" class="form-control" rows="2">{{ org['address'] if org else '' }}</textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Email di Contatto</label>
+                    <input type="email" name="contact_email" class="form-control" value="{{ org['contact_email'] if org else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Telefono di Contatto</label>
+                    <input type="text" name="contact_phone" class="form-control" placeholder="+39 06 123456" value="{{ org['contact_phone'] if org else '' }}">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mt-2">Salva Organizzazione</button>
+            <a href="/organizations" class="btn btn-secondary w-100 mt-2">Annulla</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

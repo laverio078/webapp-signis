@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Gestione Supply Chain (Dipendenze)</h2>
+    <a href="/save_dependency" class="btn btn-dark">+ Nuova Dipendenza</a>
+</div>
+
+<table class="table table-striped shadow-sm bg-white rounded">
+    <thead class="table-dark">
+        <tr>
+            <th>Servizio Impattato</th>
+            <th>Fornitore (Vendor)</th>
+            <th>Tipo Dipendenza</th>
+            <th>Riferimento SLA</th>
+            <th>Criticità</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for d in deps %}
+        <tr>
+            <td><strong>{{ d['service_name'] }}</strong><br><small class="text-muted">{{ d['description'] }}</small></td>
+            <td>{{ d['vendor_name'] }}</td>
+            <td><span class="badge bg-secondary">{{ d['dependency_type'] }}</span></td>
+            <td>{{ d['sla_reference'] }}</td>
+            <td>
+                {% if d['criticality'] >= 4 %}
+                    <span class="badge bg-danger">{{ d['criticality'] }}</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">{{ d['criticality'] }}</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="/save_dependency/{{ d['dependency_id'] }}" class="btn btn-sm btn-warning">Modifica</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="6" class="text-center">Nessuna dipendenza registrata.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

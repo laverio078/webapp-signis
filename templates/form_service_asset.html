@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow col-md-8 mx-auto border-secondary">
+    <div class="card-header bg-secondary text-white">
+        <h4>Associa un Asset a un Servizio</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label>Seleziona il Servizio</label>
+                <select name="service_id" class="form-select" required>
+                    <option value="">-- Seleziona Servizio --</option>
+                    {% for s in services %}
+                    <option value="{{ s['service_id'] }}">{{ s['name'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Seleziona l'Asset dipendente</label>
+                <select name="asset_id" class="form-select" required>
+                    <option value="">-- Seleziona Asset --</option>
+                    {% for a in assets %}
+                    <option value="{{ a['asset_id'] }}">{{ a['name'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Ruolo dell'Asset nel servizio</label>
+                <input type="text" name="role_in_service" class="form-control" placeholder="es. Database Backend, Server Web" required>
+            </div>
+
+            <button type="submit" class="btn btn-secondary w-100 text-white">Crea Associazione</button>
+            <a href="/service_assets" class="btn btn-light w-100 mt-2">Annulla</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

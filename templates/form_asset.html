@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4>{{ 'Modifica Asset' if asset else 'Nuovo Asset' }}</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Nome Asset</label>
+                        <input type="text" name="name" class="form-control" required 
+                               placeholder="es. Server Database"
+                               value="{{ asset['name'] if asset else '' }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Tipologia</label>
+                        <select name="type" class="form-select">
+                            <option value="Hardware" {% if asset and asset['asset_type'] == 'Hardware' %}selected{% endif %}>Hardware</option>
+                            <option value="Software" {% if asset and asset['asset_type'] == 'Software' %}selected{% endif %}>Software</option>
+                            <option value="Dato" {% if asset and asset['asset_type'] == 'Dato' %}selected{% endif %}>Dato / Informazione</option>
+                            <option value="Servizio" {% if asset and asset['asset_type'] == 'Servizio' %}selected{% endif %}>Servizio Cloud</option>
+                            <option value="Persone" {% if asset and asset['asset_type'] == 'Persone' %}selected{% endif %}>Risorse Umane</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Organizzazione di appartenenza</label>
+                        <select name="org" class="form-select" required>
+                            <option value="">-- Seleziona Organizzazione --</option>
+                            {% for org in organizations %}
+                                <option value="{{ org['organization_id'] }}"
+                                    {% if asset and asset['organization_id'] == org['organization_id'] %} selected {% endif %}>
+                                    {{ org['name'] }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Livello Criticità (1-5)</label>
+                        <input type="number" name="criticality" class="form-control" min="1" max="5" 
+                               value="{{ asset['criticality'] if asset else '3' }}">
+                        <div class="form-text">5 = Critico per il business, 1 = Bassa rilevanza</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Stato Ciclo di Vita (Lifecycle)</label>
+                        <select name="lifecycle_status" class="form-select">
+                            <option value="active" {% if asset and asset['lifecycle_status'] == 'active' %}selected{% endif %}>Attivo (Active)</option>
+                            <option value="off" {% if asset and asset['lifecycle_status'] == 'off' %}selected{% endif %}>Spento (Off)</option>
+                            <option value="on hold" {% if asset and asset['lifecycle_status'] == 'on hold' %}selected{% endif %}>Sospeso (On Hold)</option>
+                            <option value="decommissioned" {% if asset and asset['lifecycle_status'] == 'decommissioned' %}selected{% endif %}>Dismesso (Decommissioned)</option>
+                        </select>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">Salva Asset</button>
+                        <a href="/assets" class="btn btn-secondary">Annulla</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

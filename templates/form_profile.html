@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow col-md-8 mx-auto border-primary">
+    <div class="card-header bg-primary text-white">
+        <h4>{{ 'Modifica' if profile else 'Nuovo' }} Profilo di Sicurezza ACN</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            
+            <div class="mb-3">
+                <label class="fw-bold">Asset da proteggere</label>
+                <select name="asset_id" class="form-select" required>
+                    <option value="">-- Seleziona Asset --</option>
+                    {% for a in assets %}
+                    <option value="{{ a['asset_id'] }}" {% if profile and profile['asset_id'] == a['asset_id'] %}selected{% endif %}>
+                        {{ a['name'] }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="fw-bold">Controllo Framework ACN / NIST</label>
+                <select name="subcategory_code" class="form-select" required>
+                    <option value="">-- Seleziona il Controllo --</option>
+                    {% for c in controls %}
+                    <option value="{{ c['code'] }}" {% if profile and profile['subcategory_code'] == c['code'] %}selected{% endif %}>
+                        [{{ c['function_name'] }}] {{ c['code'] }} - {{ c['category_name'] }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label>Stato Implementazione</label>
+                    <select name="status_current" class="form-select">
+                        <option value="Non Implementato" {% if profile and profile['status_current'] == 'Non Implementato' %}selected{% endif %}>Non Implementato</option>
+                        <option value="Parziale" {% if profile and profile['status_current'] == 'Parziale' %}selected{% endif %}>Parziale</option>
+                        <option value="Implementato" {% if profile and profile['status_current'] == 'Implementato' %}selected{% endif %}>Implementato</option>
+                    </select>
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <label>Tier Attuale (1-4)</label>
+                    <select name="implementation_tier_current" class="form-select">
+                        <option value="1" {% if profile and profile['implementation_tier_current'] == '1' %}selected{% endif %}>1 - Parziale</option>
+                        <option value="2" {% if profile and profile['implementation_tier_current'] == '2' %}selected{% endif %}>2 - Informato</option>
+                        <option value="3" {% if profile and profile['implementation_tier_current'] == '3' %}selected{% endif %}>3 - Ripetibile</option>
+                        <option value="4" {% if profile and profile['implementation_tier_current'] == '4' %}selected{% endif %}>4 - Adattativo</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label>Tier Target (Obiettivo)</label>
+                    <select name="implementation_tier_target" class="form-select">
+                        <option value="1" {% if profile and profile['implementation_tier_target'] == '1' %}selected{% endif %}>1 - Parziale</option>
+                        <option value="2" {% if profile and profile['implementation_tier_target'] == '2' %}selected{% endif %}>2 - Informato</option>
+                        <option value="3" {% if profile and profile['implementation_tier_target'] == '3' %}selected{% endif %}>3 - Ripetibile</option>
+                        <option value="4" {% if profile and profile['implementation_tier_target'] == '4' %}selected{% endif %}>4 - Adattativo</option>
+                    </select>
+                </div>
+
+            <div class="mb-3">
+                <label>Analisi del Gap (Gap Analysis)</label>
+                <textarea name="gap_analysis" class="form-control" rows="3" placeholder="Descrivi cosa manca per raggiungere il Tier Target...">{{ profile['gap_analysis'] if profile else '' }}</textarea>
+                <div class="form-text">Spiega le motivazioni e le azioni necessarie per colmare il divario di sicurezza.</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Salva Profilo di Sicurezza</button>
+            <a href="/compliance" class="btn btn-outline-secondary w-100 mt-2">Annulla</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

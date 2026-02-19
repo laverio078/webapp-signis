@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Fornitori / Terze Parti (Supply Chain)</h2>
+    <a href="/save_vendor" class="btn btn-success">+ Nuovo Fornitore</a>
+</div>
+
+<table class="table table-striped table-hover shadow-sm bg-white rounded">
+    <thead class="table-dark">
+        <tr>
+            <th>Ragione Sociale</th>
+            <th>Referente Contratto</th>
+            <th>Contatti</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for v in vendors %}
+        <tr>
+            <td><strong>{{ v['name'] }}</strong></td>
+            <td>{{ v['contact_name'] }}</td>
+            <td>
+                {% if v['contact_email'] %}📧 <a href="mailto:{{ v['contact_email'] }}">{{ v['contact_email'] }}</a><br>{% endif %}
+                {% if v['contact_phone'] %}📞 {{ v['contact_phone'] }}{% endif %}
+            </td>
+            <td>
+                <a href="/save_vendor/{{ v['vendor_id'] }}" class="btn btn-sm btn-warning">Modifica</a>
+                <a href="/delete_vendor/{{ v['vendor_id'] }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Sicuro di voler eliminare questo fornitore? Verifica che non abbia dipendenze collegate.');">Elimina</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4" class="text-center">Nessun fornitore registrato a sistema.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

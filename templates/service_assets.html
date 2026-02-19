@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Mappatura Asset sui Servizi</h2>
+    <a href="/save_service_asset" class="btn btn-secondary">+ Associa Asset a Servizio</a>
+</div>
+
+<table class="table table-bordered table-hover shadow-sm bg-white rounded">
+    <thead class="table-secondary">
+        <tr>
+            <th>Servizio Erogato</th>
+            <th>Asset Dipendente</th>
+            <th>Ruolo dell'Asset nel Servizio</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for l in links %}
+        <tr>
+            <td><span class="text-primary fw-bold">{{ l['service_name'] }}</span></td>
+            <td>{{ l['asset_name'] }}</td>
+            <td><em>{{ l['role_in_service'] }}</em></td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="3" class="text-center">Nessuna mappatura presente.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

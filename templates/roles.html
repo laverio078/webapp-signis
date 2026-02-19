@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+    <h2>Ruoli Aziendali</h2>
+    <a href="/save_role" class="btn btn-success">+ Nuovo Ruolo</a>
+</div>
+<table class="table table-striped shadow-sm bg-white">
+    <thead class="table-dark">
+        <tr><th>Codice</th><th>Descrizione</th><th>Azioni</th></tr>
+    </thead>
+    <tbody>
+        {% for r in roles %}
+        <tr>
+            <td><strong>{{ r['code'] }}</strong></td>
+            <td>{{ r['description'] }}</td>
+            <td>
+                <a href="/save_role/{{ r['role_id'] }}" class="btn btn-sm btn-warning">Modifica</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow col-md-6 mx-auto">
+    <div class="card-header bg-warning text-dark">
+        <h4>{{ 'Modifica' if role else 'Nuovo' }} Ruolo</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label>Codice Ruolo (es. CISO, CEO)</label>
+                <input type="text" name="code" class="form-control" required value="{{ role['code'] if role else '' }}">
+            </div>
+            <div class="mb-3">
+                <label>Descrizione</label>
+                <textarea name="description" class="form-control" rows="3">{{ role['description'] if role else '' }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Salva Ruolo</button>
+            <a href="/roles" class="btn btn-secondary w-100 mt-2">Annulla</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

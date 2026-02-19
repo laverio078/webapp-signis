@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+    <h2>Personale</h2>
+    <a href="/save_person" class="btn btn-success">+ Nuova Persona</a>
+</div>
+<table class="table table-striped shadow-sm bg-white">
+    <thead class="table-dark">
+        <tr>
+            <th>Cognome e Nome</th>
+            <th>Contatti</th>
+            <th>Organizzazione</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in persons %}
+        <tr>
+            <td><strong>{{ p['family_name'] }} {{ p['given_name'] }}</strong></td>
+            <td>
+                {% if p['email'] %}📧 <a href="mailto:{{ p['email'] }}">{{ p['email'] }}</a><br>{% endif %}
+                {% if p['phone'] %}<span class="text-muted">📞 {{ p['phone'] }}</span>{% endif %}
+            </td>
+            <td>{{ p['org_name'] }}</td>
+            <td>
+                <a href="/save_person/{{ p['person_id'] }}" class="btn btn-sm btn-warning">Modifica</a>
+                <a href="/delete_person/{{ p['person_id'] }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Eliminare questa persona?');">Elimina</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4" class="text-center">Nessuna persona registrata.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

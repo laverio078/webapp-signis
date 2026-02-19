@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow col-md-8 mx-auto">
+    <div class="card-header bg-success text-white">
+        <h4>{{ 'Modifica' if person else 'Aggiungi' }} Persona</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Nome</label>
+                    <input type="text" name="given_name" class="form-control" required value="{{ person['given_name'] if person else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Cognome</label>
+                    <input type="text" name="family_name" class="form-control" required value="{{ person['family_name'] if person else '' }}">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" value="{{ person['email'] if person else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Telefono</label>
+                    <input type="text" name="phone" class="form-control" placeholder="+39 3331234567" value="{{ person['phone'] if person else '' }}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label>Organizzazione di Appartenenza</label>
+                <select name="organization_id" class="form-select" required>
+                    <option value="">-- Seleziona --</option>
+                    {% for org in orgs %}
+                    <option value="{{ org['organization_id'] }}" 
+                        {% if person and person['organization_id'] == org['organization_id'] %}selected{% endif %}>
+                        {{ org['name'] }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Metadati aggiuntivi (JSON)</label>
+                <textarea name="metadata" class="form-control text-monospace" rows="2" placeholder='{"ruolo_interno": "tecnico"}'>{{ person['metadata'] if person else '{}' }}</textarea>
+                <div class="form-text">Attenzione: inserire solo un JSON valido. Se non ci sono metadati, lasciare <code>{}</code>.</div>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Salva Persona</button>
+            <a href="/persons" class="btn btn-secondary w-100 mt-2">Annulla</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

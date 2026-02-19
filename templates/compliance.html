@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Profili di Sicurezza & Compliance ACN</h2>
+    <a href="/save_profile" class="btn btn-primary">+ Mappa Controllo su Asset</a>
+</div>
+
+<table class="table table-bordered table-hover shadow-sm bg-white rounded">
+    <thead class="table-dark">
+        <tr>
+            <th>Asset</th>
+            <th>Controllo ACN / NIST</th>
+            <th>Stato Attuale</th>
+            <th class="text-center">Tier Attuale</th>
+            <th class="text-center">Tier Target</th>
+            <th>Gap Analysis</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in profiles %}
+        <tr>
+            <td><strong>{{ p['asset_name'] }}</strong></td>
+            <td>
+                <span class="badge bg-secondary">{{ p['subcategory_code'] }}</span><br>
+                <small class="text-muted">{{ p['function_name'] }} - {{ p['category_name'] }}</small>
+            </td>
+            <td>
+                {% if p['status_current'] == 'Implementato' %}
+                    <span class="badge bg-success">Implementato</span>
+                {% elif p['status_current'] == 'Parziale' %}
+                    <span class="badge bg-warning text-dark">Parziale</span>
+                {% else %}
+                    <span class="badge bg-danger">Non Implementato</span>
+                {% endif %}
+            </td>
+            <td class="text-center fw-bold fs-5">{{ p['implementation_tier_current'] }}</td>
+            <td class="text-center fw-bold fs-5 text-primary">{{ p['implementation_tier_target'] }}</td>
+            <td><small>{{ p['gap_analysis'] }}</small></td>
+            <td>
+                <a href="/save_profile/{{ p['profile_id'] }}" class="btn btn-sm btn-warning">Modifica</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="7" class="text-center">Nessuna mappatura di sicurezza presente.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

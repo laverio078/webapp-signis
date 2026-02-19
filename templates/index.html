@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 text-center">
+        <h1>NIS2 Compliance Dashboard</h1>
+        <p class="lead">Panoramica dello stato di sicurezza</p>
+    </div>
+</div>
+
+<div class="row text-center">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3 shadow">
+            <div class="card-header">Organizzazioni</div>
+            <div class="card-body">
+                <h1 class="display-4">{{ o }}</h1>
+                <p class="card-text">Soggetti Censiti</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3 shadow">
+            <div class="card-header">Asset Totali</div>
+            <div class="card-body">
+                <h1 class="display-4">{{ a }}</h1>
+                <p class="card-text">Dispositivi e SW</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3 shadow">
+            <div class="card-header">Servizi Erogati</div>
+            <div class="card-body">
+                <h1 class="display-4">{{ s_tot }}</h1>
+                <p class="card-text">Totale a catalogo</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-danger mb-3 shadow">
+            <div class="card-header">Servizi Critici</div>
+            <div class="card-body">
+                <h1 class="display-4">{{ s_crit }}</h1>
+                <p class="card-text">Alta Priorità (Crit >= 4)</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
