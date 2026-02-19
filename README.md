@@ -1,6 +1,6 @@
 # 🛡️ SIGNIS WebApp - Interfaccia di Gestione NIS2
 
-Questa cartella contiene l'interfaccia web del progetto SIGNIS, è una demo app che magari potrebbe essere utile a qualcuno come base di sviluppo.
+Questa cartella contiene l'interfaccia web del progetto SIGNIS, è una demo app che magari potrebbe essere utile a qualcuno come base di sviluppo. Non ha uno stile accademico perchè per me è una bonus track e per quanto abbia rispetto per lo stile, qui uso il mio da neurodivergente.
 
 Visto che gestire un database relazionale interamente da riga di comando (o tramite pgAdmin) non è proprio "user-friendly" per chi deve compilare i registri NIS2 in azienda, ho speso 50 centesimi del mio tempo per sviluppare questa piccola applicazione web e rendere le operazioni CRUD (Create, Read, Update, Delete) facilmente accessibili.
 
@@ -19,7 +19,7 @@ sudo docker compose up -d
 
 ```
 
-## Clonazione del repository
+## 🐑 Clonazione del repository (BEEEEE)
 
 ```bash
 git clone https://github.com/laverio078/webapp-signis.git
