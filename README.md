@@ -41,8 +41,6 @@ source ./venv/bin/activate
 
 Ovviamente, scegliere una cartella dove creare la cartella venv a proprio piacimento (già ci sto mettendo troppo a scrivere la documentazione).
 
-<img src="https://upload.wikimedia.org/wikipedia/en/2/2c/Flint_Lockwood.png" width="25" align="center" alt="Flint">
-
 1. **Entrare nella cartella della webapp** (se non ci sei già):
 ```bash
 cd webapp-signis
