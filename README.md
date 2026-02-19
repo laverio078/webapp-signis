@@ -83,4 +83,5 @@ L'interfaccia mappa, spero, fedelmente l'infrastruttura del database e permette 
 
 * L'app si collega al database con l'utente `admin` e cerca automaticamente i dati nello schema `nis2` tramite l'opzione `options="-c search_path=nis2,public"`.
 * I metadati avanzati (come quelli di Persone e Fornitori) vengono salvati su DB in formato `JSONB`. L'interfaccia web accetta stringhe JSON e le passa direttamente al motore di Postgres, quindi essendo dati JSON il campo non può rimanere vuoto ma deve essere riempito con {}.
+* L'app potrebbe anche non funzionare correttamente, 
 

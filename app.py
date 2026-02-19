@@ -107,7 +107,19 @@ def save_org(id=None):
     conn.close()
     return render_template('form_org.html', org=org)
 
-
+@app.route('/delete_org/<string:id>')
+def delete_org(id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    try:
+        cur.execute("DELETE FROM organization WHERE organization_id = %s", (id,))
+        conn.commit()
+        flash('Organizzazione eliminata.', 'warning')
+    except Exception as e:
+        conn.rollback()
+        flash(f"Impossibile eliminare l'organizzazione (ha asset collegati?): {e}", 'danger')
+    conn.close()
+    return redirect(url_for('lista_org'))
 
 @app.route('/persons')
 def lista_persons():
