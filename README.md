@@ -8,17 +8,17 @@
 ![Status](https://img.shields.io/badge/Project-Bonus_Track-FFDD00?style=for-the-badge)
 ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)
 
-Questa cartella contiene l'interfaccia web del progetto SIGNIS, una demo app che magari potrebbe essere utile a qualcuno come base di sviluppo. Non ha uno stile accademico perchè per me è una bonus track e per quanto abbia rispetto per lo stile, qui uso il mio da neurodivergente.
+Questa cartella contiene l'interfaccia web del progetto SIGNIS, una demo app che magari potrebbe essere utile a qualcuno come base di sviluppo. Non ha uno stile prettamente accademico perchè per me rappresenta una bonus track e, per quanto abbia rispetto per lo stile richiesto, qui ho preferito usare il mio da neurodivergente.
 
-Visto che gestire un database relazionale interamente da riga di comando (o tramite pgAdmin) non è proprio "user-friendly" per chi deve compilare i registri NIS2 in azienda, ho speso 50 centesimi del mio tempo per sviluppare questa piccola applicazione web e rendere le operazioni CRUD (Create, Read, Update, Delete) facilmente accessibili.
+Visto che gestire un database relazionale interamente da riga di comando (o tramite pgAdmin) non risulterebbe proprio "user-friendly" per chi deve compilare i registri NIS2 in azienda, ho speso 50 centesimi del mio tempo per sviluppare questa piccola applicazione web e rendere le operazioni CRUD (Create, Read, Update, Delete) facilmente accessibili.
 
-Cosa non è: un frontend scritto bene, con i controlli di sicurezza e il CORS attivo, non mi sbatto per far contento il Ph.D Griscioli che domattina me le sfragolerà con gli assessment e le compliance.
+Cosa non è: un frontend scritto bene, con i controlli di sicurezza e il CORS attivo, non Ho intenzione di far contento il Ph.D Griscioli che domattina mi tormenterà con gli assessment e le compliance del codice.
 
-Cosa è: è un'applicazione scritta in mezza giornata a caffé e panini in **Python (Flask)** riutilizzando altre baseline che già avevo e che usavano **Bootstrap 5**. L'obiettivo era ed è non diventare matto a gestire il database relazionale sottostante (PostgreSQL) e verificare che funzioni perfettamente nel gestire la marea di relazioni tra Organizzazioni, Servizi, Asset e Supply Chain.
+Cosa è: è un'applicazione scritta in mezza giornata a caffé e panini in **Python (Flask)** riutilizzando altre baseline gia pronte e che usavano **Bootstrap 5**. L'obiettivo era ed è non impazzire a gestire il database relazionale sottostante (PostgreSQL) e verificare che funzioni perfettamente nel gestire la marea di relazioni tra Organizzazioni, Servizi, Asset e Supply Chain.
 
 ## ⚙️ Prerequisiti
 
-Che funzioni il project work SIGNIS_PW_2_19_031400314. Se non sta su un db locale o remoto e non sono stati configurati i parametri d'accesso, l'app non funziona (e ce credo, senza DB a cui collegarsi la vedo dura.).
+Che funzioni il project work SIGNIS_PW_2_19_031400314. Se non è attivo su un db locale o remoto e non sono stati configurati i parametri d'accesso, l'app non funziona (senza DB a cui collegarsi la vedo dura.).
 
 Quindi, first rule, lanciare lo stack Docker del project work:
 
@@ -36,9 +36,9 @@ git clone https://github.com/laverio078/webapp-signis.git
 
 ## 🚀 First run
 
-Io consiglio l'uso del venv di python per non sporcare il proprio ambiente, però ognuno è libero di fare come gli pare.
+Consiglio l'uso del venv di python per non sporcare il proprio ambiente, però ognuno è libero di scegliere come soffrire. 
 
-Per creare il venv la prassi è questa (prendo per assunto che chi lo usa abbia un linux debian derivato, io ho Mint):
+Per creare il venv la prassi è questa (prendo per assunto che chi lo usa abbia un linux debian derivato, io ho imoiegato Mint):
 
 ```bash
 sudo apt install python3-venv
@@ -47,7 +47,7 @@ source ./venv/bin/activate
 
 ```
 
-Ovviamente, scegliere una cartella dove creare la cartella venv a proprio piacimento (già ci sto mettendo troppo a scrivere la documentazione).
+Ovviamente, scegliere una cartella dove creare la cartella venv a proprio piacimento (ho visto documentazioni molto più corte di questa).
 
 1. **Entrare nella cartella della webapp** (se non ci sei già):
 ```bash
@@ -56,7 +56,7 @@ cd webapp-signis
 ```
 
 
-2. **Installare le due librerie in croce che servono** (Flask e Psycopg2 per parlare col DB):
+2. **Installare le due librerie che servono** (Flask e Psycopg2 per parlare col DB):
 ```bash
 pip install -r requirements.txt
 
@@ -70,8 +70,8 @@ python3 app.py
 ```
 
 
-4. **Aprire il browser**:
-Vai all'indirizzo [http://localhost:5000] o [http://127.0.0.1:5000].
+4. **Aprire il browser**
+Collegarsi all'indirizzo [http://localhost:5000] o [http://127.0.0.1:5000].
 
 ## 🧰 Cosa si può fare con l'App
 
